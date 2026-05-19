@@ -1,11 +1,11 @@
 #   Makefile
 
 -   Rules: build, run, debug, clean
--   Add pip, uv, poetry
+-   Add pip, poetry
 -   run: returns \_.exe
 -   debug: make run -> pudb
 
-#   UV, pip
+#   pip
 
 -   Imports: pip, poetry, pydantic, custom
 -   Use: termios, tty, stdout/stdin
