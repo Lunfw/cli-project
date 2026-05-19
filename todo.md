@@ -1,13 +1,13 @@
 #   Makefile
 
--   Rules: build, run, debug, clean
--   Add pip, poetry
--   run: runs program
--   debug: make run -> pudb
+-   ~~Rules: build, run, debug, clean~~
+-   ~~Add pip, poetry~~
+-   ~~run: runs program~~
+-   ~~debug: make run -> pudb~~
 
 #   pip, uv
 
--   Imports: pip, poetry, pydantic, custom
+-   ~~Imports: pip, poetry, pydantic,~~ custom
 -   Use: termios, tty, stdout/stdin
 -   Restrictions: no other imports, all custom-made functions
 -   Allowed file extensions: \*.py, \*.toml, custom extension
