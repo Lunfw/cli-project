@@ -16,6 +16,6 @@ if (__name__ == '__main__'):
         Main()
     except Exception:
         exit(1)
-    print(Format.colored('Bye', 'WHITE'))
+    print(Format.colored('\n# Goodbye!!', 'WHITE'))
     sleep(1)
     exit(0)
