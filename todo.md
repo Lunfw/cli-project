@@ -22,7 +22,7 @@
 -   ./src/__main__.py
 -   ./src/\*.py
 -   ./plugins: \*.py files
--   ./plugins.?
+-   ./plugins.cli
 
 The goal is to be able to make a command-line interface, nothing fancy.
 Framework, works under a mods/plugins folder.
