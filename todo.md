@@ -2,10 +2,10 @@
 
 -   Rules: build, run, debug, clean
 -   Add pip, poetry
--   run: returns \_.exe
+-   run: runs program
 -   debug: make run -> pudb
 
-#   pip
+#   pip, uv
 
 -   Imports: pip, poetry, pydantic, custom
 -   Use: termios, tty, stdout/stdin
