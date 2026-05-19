@@ -1,15 +1,13 @@
 from src.colors import Format
 from src.errors import GeneralErrors
+from src.tui    import MainDisplay
+
 
 #   Main
 class Main:
     def __init__(self) -> None:
-        print('hi')
-
-#   Sub-Main
-class Sub:
-    pass
-
+        MainDisplay.draw_border()
+        
 
 if (__name__ == '__main__'):
     try:
