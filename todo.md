@@ -13,5 +13,6 @@
 
 #   Root
 
+-   setup.py
 -   src/__main__.py
 -   src/*.py
