@@ -1,5 +1,3 @@
-.SILENT:
-
 export UV_CACHE_DIR := $(CURDIR)/.cache
 
 RED	=	\e[1;31m
@@ -11,35 +9,33 @@ PY	=	python3
 UV	=	uv
 PDB	=	pudb
 PIP	=	pip
-EXEC	=	./src/__main__.py
 RM	=	rm -rf
 VENV	=	.venv
 
-all: $(NAME)
-	@make build; \
-	make run
+all: build
+	@clear; \
+	$(UV) run --no-sync $(PY) -m src
 
 help:
 	@echo '\n$(CYAN)Usage:$(WHITE)\n'; \
-	echo '│ make run	- $(EXEC)'; \
-	echo '│	make build	- $(PDB) $(EXEC)'; \
+	echo '│	make run	- $(UV) run --no-sync $(PY) -m src'; \
+	echo '│	make build	- $(UV) run --no-sync $(PDB) -m src'; \
 	echo '│	make clean	- $(RM) $(VENV) + $(UV_CACHE_DIR)'; \
-	echo '│	make help	- this'; \
-	echo '│	make all	- make build && make run'
+	echo '│	make help	- this'
 
 build:
 	@if [ ! -d "$(VENV)" ]; then \
-		$(UV) venv $(VENV); \
+		$(UV) run $(PY) -m venv $(VENV); \
 		$(UV) $(PIP) install -e .; \
 		echo '\n$(GREEN)Built $(VENV).$(WHITE)\n'; \
 	fi
 
 
 debug: build
-	@$(UV) run $(PDB) $(EXEC)
+	@$(UV) run --no-sync $(PDB) -m src
 
 run: build
-	@$(UV) run $(EXEC)
+	@$(UV) run --no-sync $(PY) -m src
 
 clean:
 	@$(RM) .cache; \
