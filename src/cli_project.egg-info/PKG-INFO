@@ -1,8 +1,0 @@
-Metadata-Version: 2.4
-Name: cli-project
-Version: 0.1.0
-Summary: CLI framework!!!
-Requires-Python: >=3.10
-Requires-Dist: pudb
-Provides-Extra: dev
-Requires-Dist: pudb; extra == "dev"
