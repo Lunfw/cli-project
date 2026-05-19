@@ -44,6 +44,9 @@ run: build
 clean:
 	@$(RM) .cache; \
 	$(RM) $(VENV); \
+	find . -name "*.pyc" -exec $(RM) {} +; \
+	find . -name "*.pyo" -exec $(RM) {} +; \
+	find . -name "__pycache__" -exec $(RM) -r {} +; \
 	echo '\n$(CYAN)Deleted $(VENV) + $(UV_CACHE_DIR).$(WHITE)\n'
 
 
