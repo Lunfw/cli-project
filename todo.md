@@ -18,7 +18,6 @@
 
 #   Root
 
--   ./setup.py: install dependencies, alias to sh if allowed
 -   ./src/__main__.py
 -   ./src/\*.py
 -   ./plugins: \*.py files
