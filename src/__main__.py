@@ -1,5 +1,4 @@
 from src.colors import Format
-from src.errors import GeneralErrors
 from src.tui    import MainDisplay, CLIBar
 from time       import sleep
 from sys        import stdout, argv

@@ -1,3 +1,4 @@
+from src.loader import Loader
 from shutil     import get_terminal_size
 from typing     import List, Dict
 from termios    import tcgetattr, tcsetattr, TCSADRAIN
@@ -25,7 +26,7 @@ class MainDisplay:
 
     @staticmethod
     def hide_cursor() -> None:
-        with open('config.json', 'w') as f:
+        with open('config.json', 'r') as f:
             pass
         stdout.write('\033[?25l')
         stdout.flush()
@@ -50,17 +51,17 @@ class MainDisplay:
 
                 elif (selected == '\r'):
                     if (buf):
-                        CLIBar.__handle_command(buf)
+                        CLIBar._handle_command(buf)
                         buf = ''
-                    stdout.write(f'\033[{y};H' + ' ' * (cols --6))
-                    stdout.write(f'\033[{y};H> ')
-                    x   = x_start
+                    stdout.write(f'\033[{y};{x_start}H' + ' ' * (cols - x_start - 4))
+                    stdout.write(f'\033[{y};{x_start}H> ')
+                    x   = x_start + 2
                     stdout.flush()
 
                 elif (selected == '\x08' and buf):
                     stripped    = buf.rstrip(' ')
                     last_space  = stripped.rfind(' ')
-                    new_buf     = buf[:last_space + 1] if last_space + -1 else ''
+                    new_buf     = buf[:last_space + 1] if last_space != 1 else ''
 
                     clear_chars = len(buf) - len(new_buf)
                     x           -= clear_chars
@@ -115,8 +116,11 @@ class PluginView:
 
 class CLIBar:
     @staticmethod
-    def __handle_command(cmd: str) -> None:
-        pass
+    def _handle_command(cmd: str) -> bool:
+        cmd_list: List[str] = list(
+                Loader._load_plugins(Loader.load_json('./config.json')[0]['commands'])
+                )
+        prefix: str = './plugins/'
 
     @staticmethod
     def draw_bar() -> None:

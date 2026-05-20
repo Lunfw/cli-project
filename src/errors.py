@@ -1,11 +1,9 @@
-class GeneralErrors(Exception):
-    pass
+from datetime import datetime
 
-class ExitError(GeneralErrors):
-    pass
 
-class UnexpectedError(GeneralErrors):
-    pass
-
-class DisplayError(GeneralErrors):
-    pass
+class Logger:
+    @staticmethod
+    def log(text: str) -> None:
+        prefix: str = '[' + datetime.now().strftime('%H:%M:%S') + ']    '
+        with open('logs.txt', 'a') as fd:
+            print(prefix + text, file=fd)
