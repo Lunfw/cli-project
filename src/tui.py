@@ -120,7 +120,8 @@ class CLIBar:
         cmd_list: List[str] = list(
                 Loader._load_plugins(Loader.load_json('./config.json')[0]['commands'])
                 )
-        prefix: str = './plugins/'
+        if (cmd in cmd_list):
+            ...
 
     @staticmethod
     def draw_bar() -> None:
