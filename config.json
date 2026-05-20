@@ -1,0 +1,13 @@
+[
+	{
+		"commands": {
+			"load": "./plugins/load.py",
+			"exit": "./plugins/exit.py",
+			"delete": "./plugins/delete.py",
+			"add": "./plugins/add.py"
+		},
+		"config": {
+			"hide_cursor": false
+		}
+	}
+}

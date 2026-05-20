@@ -12,6 +12,8 @@ PIP	=	pip
 RM	=	rm -rf
 VENV	=	.venv
 
+ARGS	=	$(filter-out $@, $(MAKECMDGOALS))
+
 all: build
 	@clear; \
 	$(UV) run --no-sync $(PY) -m src
@@ -35,7 +37,7 @@ debug: build
 	@$(UV) run --no-sync $(PDB) -m src
 
 run: build
-	@$(UV) run --no-sync $(PY) -m src
+	@$(UV) run --no-sync $(PY) -m src $(ARGS)
 
 clean:
 	@$(RM) .cache; \
