@@ -1,5 +1,6 @@
 from src.colors import Format
 from src.tui    import MainDisplay, CLIBar, PluginView
+from src.errors import Logger
 from time       import sleep
 from sys        import stdout, argv
 from enum       import Enum
@@ -45,6 +46,7 @@ class CheckArgs:
 
 class Main:
     def __init__(self) -> None:
+        Logger.log('Program started', 'SUCCESS')
         # MainDisplay.hide_cursor()
         MainDisplay.draw_border()
         CLIBar.move_cursor_to_input()
@@ -57,7 +59,9 @@ if (__name__ == '__main__'):
     try:
         Main()
     except Exception:
+        Logger.log('Exited with code 1', 'ERROR')
         exit(1)
     print(Format.colored('\n# Goodbye!!', 'WHITE'))
     sleep(1)
+    Logger.log('Exited with code 0', 'EXIT')
     exit(0)

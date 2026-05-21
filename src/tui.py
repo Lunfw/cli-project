@@ -52,6 +52,22 @@ class MainDisplay:
             while True:
                 selected    = stdin.read(1)
 
+                if (selected == '\t'):
+                    cmds    = Loader.load_json('./config.json')[0]['commands']
+                    matches = [k for k in cmds if k.startswith(buf)]
+
+                    if (len(matches) == 1):
+                        complete    = matches[0][len(buf):]
+                        buf         += complete
+                        stdout.write(f'\033[{y};{x}H' + complete)
+                        x           += len(complete)
+                        stdout.flush()
+
+                    elif (len(matches) > 1):
+                        PluginView.clear()
+                        for match in matches:
+                            PluginView.write(match)
+
                 if (selected == '\n'):
                     if (buf):
                         CLIBar._handle_command(buf)
@@ -159,7 +175,7 @@ class CLIBar:
         cmd_dict: Dict[str] = dict(Loader._load_plugins(cmd_list))
 
         if (name not in cmd_dict):
-            Logger.log('ERROR: command not found -> ' + name)
+            Logger.log('Command not found -> ' + name, 'ERROR')
             return False
         path    = cmd_dict[name]
         spec    = util.spec_from_file_location(name, path)
@@ -167,11 +183,12 @@ class CLIBar:
         spec.loader.exec_module(module)
 
         if (not hasattr(module, 'Plugin')):
-            Logger.log('ERROR: commands/plugins require Plugin class -> ' + name)
+            Logger.log('Commands/plugins require Plugin class -> ' + name, 'ERROR')
             return False
         if (not len(args)):
             args    = None
         plugin  = module.Plugin()
+        Logger.log(f'Running command: {name}')
         plugin.run(args, PluginView)
         return True
 
