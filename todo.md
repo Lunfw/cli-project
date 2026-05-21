@@ -28,6 +28,7 @@
 
 -   Plugin loading
 -   Command loading
+-   Plugin template
 
 The goal is to be able to make a command-line interface, nothing fancy.
 Framework, works under a mods/plugins folder.

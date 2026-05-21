@@ -1,5 +1,5 @@
 from src.colors import Format
-from src.tui    import MainDisplay, CLIBar
+from src.tui    import MainDisplay, CLIBar, PluginView
 from time       import sleep
 from sys        import stdout, argv
 from enum       import Enum

@@ -1,4 +1,5 @@
 from src.loader import Loader
+from src.errors import Logger
 from shutil     import get_terminal_size
 from typing     import List, Dict
 from termios    import tcgetattr, tcsetattr, TCSADRAIN, ICANON, ECHO, IEXTEN, VMIN, VTIME
@@ -51,7 +52,7 @@ class MainDisplay:
             while True:
                 selected    = stdin.read(1)
 
-                if (selected == '\r'):
+                if (selected == '\n'):
                     if (buf):
                         CLIBar._handle_command(buf)
                         buf = ''
@@ -104,6 +105,9 @@ class PluginView:
         view_top    = 3
         y           = view_top + PluginView._current_line
 
+        max_width   = cols - 8
+        text        = text[:max_width]
+
         stdout.write(f'\033[{y};{x}H{text}')
         stdout.flush()
         PluginView._current_line += 1
@@ -111,14 +115,14 @@ class PluginView:
     @staticmethod
     def clear() -> None:
         cols, rows  = get_terminal_size()
-        width       = cols - 6
+        width       = cols - 8
         view_top    = 3
         cli_height  = 3
         view_height = rows - 2 - cli_height - view_top
 
-        for i in range(1, view_height):
-            stdout.write(f'\033[{view_top + i};{3}H' + ' ' * (width - 2))
-        PluginView._current_line    = 1
+        for i in range(view_height):
+            stdout.write(f'\033[{view_top + i};{4}H' + ' ' * (width - 2))
+        PluginView._current_line    = 0
         stdout.flush()
 
     @staticmethod
@@ -146,21 +150,29 @@ class CLIBar:
     @staticmethod
     def _handle_command(cmd: str) -> bool:
         parts               = cmd.strip().split()
+        if (not parts):
+            return False
         name                = parts[0]
         args                = parts[1:]
-        cmd_list: List[str] = list(
-                Loader._load_plugins(Loader.load_json('./config.json')[0]['commands'])
-                )
+        cmd_list: Dict[str] = Loader.load_json('./config.json')[0]['commands']
 
-        for i in cmd_list:
-            while (name not in i):
-                pass
+        cmd_dict: Dict[str] = dict(Loader._load_plugins(cmd_list))
 
-        path    = cmd_list[name]
+        if (name not in cmd_dict):
+            Logger.log('ERROR: command not found -> ' + name)
+            return False
+        path    = cmd_dict[name]
         spec    = util.spec_from_file_location(name, path)
         module  = util.module_from_spec(spec)
         spec.loader.exec_module(module)
-        module.run(args, PluginView)
+
+        if (not hasattr(module, 'Plugin')):
+            Logger.log('ERROR: commands/plugins require Plugin class -> ' + name)
+            return False
+        if (not len(args)):
+            args    = None
+        plugin  = module.Plugin()
+        plugin.run(args, PluginView)
         return True
 
     @staticmethod
