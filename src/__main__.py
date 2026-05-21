@@ -46,7 +46,9 @@ class CheckArgs:
 
 class Main:
     def __init__(self) -> None:
+        Logger.separate()
         Logger.log('Program started', 'SUCCESS')
+        Logger.separate()
         # MainDisplay.hide_cursor()
         MainDisplay.draw_border()
         CLIBar.move_cursor_to_input()

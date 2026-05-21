@@ -5,8 +5,11 @@ from shutil     import move
 
 class Plugin:
     def run(self, args: List[str], view) -> None:
+        temp: List[str] = []
+
         if (not args):
             view.write('Usage: add <file>')
+            Logger.log('No file provided, closing', 'WARNING')
             return
 
         view.write(Format.colored('#    Adding *.py to ./plugins', 'WHITE'))
@@ -17,5 +20,10 @@ class Plugin:
                 move(i, './plugins/' + i[:-4])
             else:
                 move(i, './plugins/' + i)
+            temp.append(i)
         view.write(Format.colored('│', 'GREY'))
         view.write('#    Added '+ str(len(args)) + ' files')
+        
+        Logger.log('#   Added ' + str(len(args)) + ' files', 'SUCCESS')
+        for i in temp:
+            Logger.log('│   ' + i, 'INFO')

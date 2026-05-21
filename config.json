@@ -1,15 +1,16 @@
 [
-	{
-		"commands": {
-			"load": "./plugins/_load.py",
-			"exit": "./plugins/_exit.py",
-			"delete": "./plugins/_delete.py",
-			"add": "./plugins/_add.py",
-			"clear": "./plugins/_clear.py",
-			"ls": "./plugins/_ls.py"
-		},
-		"config": {
-			"hide_cursor": false
-		}
-	}
+    {
+        "commands": {
+            "load": "./plugins/_load.py",
+            "exit": "./plugins/_exit.py",
+            "delete": "./plugins/_delete.py",
+            "add": "./plugins/_add.py",
+            "clear": "./plugins/_clear.py",
+            "ls": "./plugins/_ls.py",
+            "cat": "./plugins/_cat.py"
+        },
+        "config": {
+            "hide_cursor": false
+        }
+    }
 ]

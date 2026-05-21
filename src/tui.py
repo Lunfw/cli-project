@@ -177,6 +177,7 @@ class CLIBar:
         if (name not in cmd_dict):
             Logger.log('Command not found -> ' + name, 'ERROR')
             return False
+
         path    = cmd_dict[name]
         spec    = util.spec_from_file_location(name, path)
         module  = util.module_from_spec(spec)
@@ -185,11 +186,15 @@ class CLIBar:
         if (not hasattr(module, 'Plugin')):
             Logger.log('Commands/plugins require Plugin class -> ' + name, 'ERROR')
             return False
+
         if (not len(args)):
             args    = None
+
         plugin  = module.Plugin()
         Logger.log(f'Running command: {name}')
+        Logger.separate()
         plugin.run(args, PluginView)
+        Logger.separate()
         return True
 
     @staticmethod
