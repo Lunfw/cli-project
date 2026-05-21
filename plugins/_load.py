@@ -6,6 +6,11 @@ from shutil     import move
 
 
 class Plugin:
+    '''
+    _load.py: load <plugin> (.py.bak/.py)
+
+    Takes a .py file and moves it to ./plugins, while also adding it to the config.json as a command to use on the command line.
+    '''
     def run(self, args: List[Any], view) -> None:
         error: List[str] = []
         if (not args):
@@ -29,8 +34,7 @@ class Plugin:
                 continue
             
             if (temp not in config[0]['commands']):
-                key = '_' + temp if not temp.startswith('_') else temp
-                config[0]['commands'][key] = './plugins/' + temp
+                config[0]['commands'][temp] = './plugins/' + temp
                 move(i, prefix + temp)
                 Logger.log('Added plugin -> ' + temp, 'SUCCESS')
             else:

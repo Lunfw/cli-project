@@ -3,6 +3,11 @@ from typing     import Any
 
 
 class Plugin:
+    '''
+    _clear.py: clear
+
+    Clears the screen.
+    '''
     def run(self, args: Any, view) -> None:
         Logger.log('_clear.py: Clearing window')
         view.clear()

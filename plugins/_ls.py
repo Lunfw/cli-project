@@ -4,6 +4,11 @@ from os     import listdir
 
 
 class Plugin:
+    '''
+    _ls.py: ls
+
+    Lists ./*.py plugins that are not _*.py.
+    '''
     def run(self, args: List[str], view) -> None:
         view.write(Format.colored('#    ./plugins/', 'WHITE'))
         temp: List[str] = []

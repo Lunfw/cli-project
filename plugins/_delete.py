@@ -4,6 +4,11 @@ from shutil     import move
 
 
 class Plugin:
+    '''
+    _delete.py: delete <file>
+
+    Backs up files to ./backup under *.py.bak. Does not remove the file.
+    '''
     def run(self, args: List[str], view) -> None:
         if (not args):
             view.write('Usage: delete <file>')

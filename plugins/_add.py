@@ -4,6 +4,12 @@ from shutil     import move
 
 
 class Plugin:
+    '''
+    _add.py: add <file> (.py.bak/.py)
+
+    Adds a .py file to ./plugins. Does not add the file to the config.json.
+    Mainly for adding custom libs for plugins.
+    '''
     def run(self, args: List[str], view) -> None:
         temp: List[str] = []
 
