@@ -96,7 +96,7 @@ class MainDisplay:
 
 
 class PluginView:
-    _current_line: int  = 1
+    _current_line: int  = 0
 
     @staticmethod
     def write(text: str) -> None:
