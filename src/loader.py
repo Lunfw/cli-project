@@ -1,6 +1,29 @@
 from json       import load
-from typing     import Dict, Iterator
+from typing     import Dict, Iterator, List
+from pathlib    import Path
+from importlib  import util
 from src.errors import Logger
+
+
+def run(args: List[str], view) -> None:
+    prefix  = './plugins/'
+    if (not args):
+        view.write('Usage: load <plugin>')
+        return
+
+    path = Path(prefix + args[0] + '.py')
+    try:
+        if (not path.exists(path)):
+            view.write('ERROR: plugin not found ->' + args[0])
+            raise FileNotFoundError
+        spec    = util.spec_from_file_location(args[0], path)
+        module  = util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        view.clear()
+        module.run(view)
+    except FileNotFoundError:
+        Logger.log('ERROR: plugin not found -> ' + args[0])
+        pass
 
 
 class Loader:
@@ -10,16 +33,13 @@ class Loader:
             return (load(f))
 
     @staticmethod
-    def _get_plugin_name(filename: str) -> str:
-        return (filename.split('/')[-1])
-
-    @staticmethod
     def _load_plugins(commands: Dict[str, str]) -> Iterator[str]:
-        prefix: str     = 'plugins/'
         try:
-            for i in commands.values():
-                with open(i, 'r') as file:
-                    yield Loader._get_plugin_name(i)
+            for name, path in commands.items():
+                if (Path(path).exists()):
+                    yield name, path
+                else:
+                    raise FileNotFoundError
         except FileNotFoundError:
             Logger.log('ERROR: file not found -> ' + i)
             pass

@@ -1,9 +1,9 @@
 from src.loader import Loader
 from shutil     import get_terminal_size
 from typing     import List, Dict
-from termios    import tcgetattr, tcsetattr, TCSADRAIN
-from tty        import setraw
+from termios    import tcgetattr, tcsetattr, TCSADRAIN, ICANON, ECHO, IEXTEN, VMIN, VTIME
 from sys        import stdin, stdout
+from importlib  import util
 
 
 class MainDisplay:
@@ -34,22 +34,24 @@ class MainDisplay:
     @staticmethod
     def enable_raw_mode() -> None:
     
-        fd          = stdin.fileno()
-        old         = tcgetattr(fd)
-        setraw(fd)
-        buf         = ''
-        cols, rows  = get_terminal_size()
-        x_start     = 5
-        x           = x_start + 2
-        y           = rows - 2
+        fd              = stdin.fileno()
+        old             = tcgetattr(fd)
+        new             = tcgetattr(fd)
+        new[3]          &= ~(ICANON | ECHO | IEXTEN)
+        new[6][VMIN]    = 1
+        new[6][VTIME]   = 0
+        tcsetattr(fd, TCSADRAIN, new)
+        buf             = ''
+        cols, rows      = get_terminal_size()
+        x_start         = 5
+        x               = x_start + 2
+        y               = rows - 2
 
         try:
             while True:
                 selected    = stdin.read(1)
-                if (selected == '\x03'):
-                    break
 
-                elif (selected == '\r'):
+                if (selected == '\r'):
                     if (buf):
                         CLIBar._handle_command(buf)
                         buf = ''
@@ -93,6 +95,32 @@ class MainDisplay:
 
 
 class PluginView:
+    _current_line: int  = 1
+
+    @staticmethod
+    def write(text: str) -> None:
+        cols, rows  = get_terminal_size()
+        x           = 5
+        view_top    = 3
+        y           = view_top + PluginView._current_line
+
+        stdout.write(f'\033[{y};{x}H{text}')
+        stdout.flush()
+        PluginView._current_line += 1
+
+    @staticmethod
+    def clear() -> None:
+        cols, rows  = get_terminal_size()
+        width       = cols - 6
+        view_top    = 3
+        cli_height  = 3
+        view_height = rows - 2 - cli_height - view_top
+
+        for i in range(1, view_height):
+            stdout.write(f'\033[{view_top + i};{3}H' + ' ' * (width - 2))
+        PluginView._current_line    = 1
+        stdout.flush()
+
     @staticmethod
     def draw_window() -> None:
         cols, rows  = get_terminal_size()
@@ -117,11 +145,23 @@ class PluginView:
 class CLIBar:
     @staticmethod
     def _handle_command(cmd: str) -> bool:
+        parts               = cmd.strip().split()
+        name                = parts[0]
+        args                = parts[1:]
         cmd_list: List[str] = list(
                 Loader._load_plugins(Loader.load_json('./config.json')[0]['commands'])
                 )
-        if (cmd in cmd_list):
-            ...
+
+        for i in cmd_list:
+            while (name not in i):
+                pass
+
+        path    = cmd_list[name]
+        spec    = util.spec_from_file_location(name, path)
+        module  = util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        module.run(args, PluginView)
+        return True
 
     @staticmethod
     def draw_bar() -> None:

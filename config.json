@@ -4,8 +4,7 @@
 			"load": "./plugins/_load.py",
 			"exit": "./plugins/_exit.py",
 			"delete": "./plugins/_delete.py",
-			"add": "./plugins/_add.py",
-			"fake": "./plugins/fake.py"
+			"add": "./plugins/_add.py"
 		},
 		"config": {
 			"hide_cursor": false
