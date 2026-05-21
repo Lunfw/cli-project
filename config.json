@@ -5,7 +5,8 @@
 			"exit": "./plugins/_exit.py",
 			"delete": "./plugins/_delete.py",
 			"add": "./plugins/_add.py",
-			"clear": "./plugins/_clear.py"
+			"clear": "./plugins/_clear.py",
+			"ls": "./plugins/_ls.py"
 		},
 		"config": {
 			"hide_cursor": false
