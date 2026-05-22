@@ -46,9 +46,7 @@ class CheckArgs:
 
 class Main:
     def __init__(self) -> None:
-        Logger.separate()
         Logger.log('Program started', 'SUCCESS')
-        Logger.separate()
         # MainDisplay.hide_cursor()
         MainDisplay.draw_border()
         CLIBar.move_cursor_to_input()
@@ -66,4 +64,5 @@ if (__name__ == '__main__'):
     print(Format.colored('\n# Goodbye!!', 'WHITE'))
     sleep(1)
     Logger.log('Exited with code 0', 'EXIT')
+    Logger.separate()
     exit(0)

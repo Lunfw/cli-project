@@ -23,7 +23,6 @@ def run(args: List[str], view) -> None:
         module.run(view)
     except FileNotFoundError:
         Logger.log('ERROR: plugin not found -> ' + args[0])
-        Logger.separate()
         pass
 
 

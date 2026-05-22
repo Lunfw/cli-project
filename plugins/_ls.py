@@ -1,6 +1,7 @@
 from src.colors import Format
-from typing import List
-from os     import listdir
+from src.errors import Logger
+from typing     import List
+from os         import listdir
 
 
 class Plugin:
@@ -18,6 +19,7 @@ class Plugin:
 
         if (not len(temp)):
             view.write('No plugins found!')
+            Logger.log('No plugins found', 'WARNING')
             return
 
         for i in temp:

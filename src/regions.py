@@ -92,10 +92,10 @@ class CLIBar:
             args    = None
 
         plugin  = module.Plugin()
+        Logger.separate()
         Logger.log(f'Running command: {name}')
         Logger.separate()
         plugin.run(args, PluginView)
-        Logger.separate()
         return True
 
     @staticmethod

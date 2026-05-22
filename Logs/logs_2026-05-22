@@ -1,0 +1,27 @@
+[1;32m+ [16:20:38]    │ SUCCESS: Program started[0m
+
+[1;36m. [16:20:39]    │ INFO: Running command: ls[0m
+
+[1;33m~ [16:20:39]    │ WARNING: No plugins found[0m
+
+[1;36m. [16:20:47]    │ INFO: Running command: cat[0m
+
+[1;36m. [16:20:47]    │ INFO: Reading file -> Logs/Lo[0m
+[1;31m- [16:20:47]    │ ERROR: Exited with code 1[0m
+[1;32m+ [16:20:53]    │ SUCCESS: Program started[0m
+
+[1;36m. [16:21:05]    │ INFO: Running command: cat[0m
+
+[1;36m. [16:21:05]    │ INFO: Reading file -> Logs/logs_2026-05-22[0m
+[1;36m. [16:21:05]    │ INFO: Closing file -> Logs/logs_2026-05-22[0m
+
+[1;36m. [16:21:22]    │ INFO: Running command: ls[0m
+
+[1;33m~ [16:21:22]    │ WARNING: No plugins found[0m
+
+[1;36m. [16:21:27]    │ INFO: Running command: cat[0m
+
+[1;36m. [16:21:27]    │ INFO: Reading file -> Logs/logs_2026-05-22[0m
+[1;36m. [16:21:27]    │ INFO: Closing file -> Logs/logs_2026-05-22[0m
+[1;32m+ [16:21:36]    │ EXIT: Exited with code 0[0m
+
