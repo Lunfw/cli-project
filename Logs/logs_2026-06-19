@@ -1,0 +1,24 @@
+[1;32m+ [13:29:59]    │ SUCCESS: Program started[0m
+[1;31m- [13:30:01]    │ ERROR: Command not found -> l[0m
+
+[1;36m. [13:30:02]    │ INFO: Running command: ls[0m
+
+[1;33m~ [13:30:02]    │ WARNING: No plugins found[0m
+[1;31m- [13:30:06]    │ ERROR: Command not found -> help[0m
+
+[1;36m. [13:30:09]    │ INFO: Running command: exit[0m
+
+[1;32m+ [13:30:10]    │ EXIT: Exited with code 0[0m
+
+[1;32m+ [13:30:45]    │ SUCCESS: Program started[0m
+
+[1;36m. [13:30:46]    │ INFO: Running command: cat[0m
+
+[1;33m~ [13:30:46]    │ WARNING: No file provided, closing[0m
+
+[1;36m. [13:31:01]    │ INFO: Running command: cat[0m
+
+[1;36m. [13:31:01]    │ INFO: Reading file -> src/loader.py[0m
+[1;36m. [13:31:01]    │ INFO: Closing file -> src/loader.py[0m
+[1;32m+ [13:31:07]    │ EXIT: Exited with code 0[0m
+
